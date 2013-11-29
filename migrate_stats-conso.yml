@@ -3,20 +3,18 @@
   sudo: yes
   vars:
   - pg_path: /library/pgsql-xs
-  tasks:
-  - name: Install python-pip package
-    yum: name=python-pip
-         state=installed
+  - packages:
+    - python-pip
+    - python-virtualenv
+    - rrdtool-python
+    - python-sqlalchemy
+    - python-psycopg2
 
-  - name: Install required libraries
+  tasks:
+  - name: Install required libraries and packages
     yum: name={{ item }}
          state=installed
-    with_items:
-      - python-pip
-      - python-virtualenv
-      - rrdtool-python
-      - python-sqlalchemy
-      - python-psycopg2
+    with_items: '{{ packages }}'
 
   - name: Enable postgresl access by md5 method
     lineinfile: backup=yes
