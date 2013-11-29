@@ -9,6 +9,7 @@
     - rrdtool-python
     - python-sqlalchemy
     - python-psycopg2
+  - stats_conso_package: git+https://github.com/migonzalvar/statistics-consolidation.git@sqlalchemy-v2#egg=stats_consolidation
   - files_to_install:
     - src: stats-consolidation.conf
       dest: /etc/stats-consolidation.conf
@@ -48,7 +49,7 @@
     sudo_user: postgres
 
   - name: Install statistics-consolidation with pip
-    pip: name=git+https://github.com/migonzalvar/statistics-consolidation.git@sqlalchemy-v2#egg=stats_consolidation
+    pip: name={{ stats_conso_package }}
 
   - name: Install files
     template: src={{ item.src }}
